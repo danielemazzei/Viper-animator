@@ -1,6 +1,10 @@
 """
 .. module: animator 
 
+********
+Animator
+********
+
 This module contains class definitions for a generic animator.
 The animator is a simple engine that takes as input a list o values to be reached at certain times and interpolates the data creating a continuous set of samples.
 The animator takes as input the function to be called at the specified frame-rate passing it passing it the interpolated value.
@@ -68,29 +72,32 @@ Animator class
 
             self.callback(self.currentValue)     
 
-        """
-.. method:: stop()
-    Blocks the animator setting the status to "IDLE". 
-        """ 
 
     def stop(self):
+        """
+.. method:: stop()
+
+    Blocks the animator setting the status to "IDLE". 
+        """ 
         self.state="IDLE"
 
 
-        """
-.. method:: state()
-    Returns the animator state as string: RUN or IDLE 
-        """ 
 
     def state(self):
+        """
+.. method:: state()
+
+    Returns the animator state as string: RUN or IDLE 
+        """ 
         return self.state
 
-        """
-.. method:: currentPosition()
-    Returns the current position of the animation in term of (animation block, sample, interpolated value)
-        """         
 
     def currentPosition(self):
+        """
+.. method:: currentPosition()
+
+    Returns the current position of the animation in term of (animation block, sample, interpolated value)
+        """         
         return [self.currentBlock,self.currentStep, self.currentValue]   
     
     
@@ -106,12 +113,13 @@ Animator class
 
         self.totDuration+=points[0][1]       
     
-        """
-.. method:: animate()
-    starts the interpolation process and activate the animator timer that will call the chosen function with the selected period passing the interpolated values
-        """         
 
     def animate(self, points):
+        """
+.. method:: animate(points)
+
+    starts the interpolation process and activate the animator timer that will call the chosen function with the selected period passing the interpolated values
+        """         
         self.interpolate(points)
                   
         self.state="RUN"
@@ -123,11 +131,12 @@ Animator class
         #self.__run()
 
     
-    """
-.. method:: animate()
-    returns the total duration of the loaded animation. animate have to be called before in order to get results from duration method   
-    """         
 
     def duration(self):
+        """
+.. method:: duration()
+
+    returns the total duration of the loaded animation. animate have to be called before in order to get results from duration method   
+        """         
         return self.totDuration    
                 

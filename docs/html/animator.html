@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Animator &mdash; Animator 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/viper.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Animator 0.3.0 documentation" href="index.html"/>
+        <link rel="prev" title="Animator Library" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Animator</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Animator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#animator-class">Animator class</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Animator</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Animator</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/animator.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="animator">
+<h1>Animator<a class="headerlink" href="#animator" title="Permalink to this headline">¶</a></h1>
+<p>This module contains class definitions for a generic animator.
+The animator is a simple engine that takes as input a list o values to be reached at certain times and interpolates the data creating a continuous set of samples.
+The animator takes as input the function to be called at the specified frame-rate passing it passing it the interpolated value.
+This means that the Animator doesn&#8217;t block the program execution during the animation. Once started an animation runs interdependently by the program workflow.</p>
+<p>Every Animator instance implements the following methods:</p>
+<blockquote>
+<div><a href="#id1"><span class="problematic" id="id2">*</span></a>animate: starts the interpolation process and activate the animator timer that will call the chosen function with the selected period
+<a href="#id3"><span class="problematic" id="id4">*</span></a>stop: blocks the animation execution
+<a href="#id5"><span class="problematic" id="id6">*</span></a>duration: returns the total duration of the loaded animation. animate have to be called before in order to get results from duration method
+<a href="#id7"><span class="problematic" id="id8">*</span></a>currentPosition: returns the current position of the animation in term of (animation block, sample, interpolated value)</div></blockquote>
+<div class="section" id="animator-class">
+<h2>Animator class<a class="headerlink" href="#animator-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Animator">
+<em class="property">class </em><code class="descname">Animator</code><span class="sig-paren">(</span><em>frame_rate</em>, <em>callback_fun</em>, <em>interp_fun=&quot;LINEAR&quot;</em><span class="sig-paren">)</span><a class="headerlink" href="#Animator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the class for creating an animator.
+* frame_rate: is the frequency used by the animator to interpolate the values and then for calling the callback passing it the interpolated value.Smooth animations for lights and LEDs are fine with values around 30Hz.
+* callback_fun: is the function that will be called at the specified frame rate passing the interpolated value.
+* interp_fun: is the string associated with the interpolation algorithm. in this version only LINEAR is supported and consequently set as default.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="stop">
+<code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blocks the animator setting the status to &#8220;IDLE&#8221;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="state">
+<code class="descname">state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the animator state as string: RUN or IDLE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="currentPosition">
+<code class="descname">currentPosition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#currentPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current position of the animation in term of (animation block, sample, interpolated value)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="animate">
+<code class="descname">animate</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="headerlink" href="#animate" title="Permalink to this definition">¶</a></dt>
+<dd><p>starts the interpolation process and activate the animator timer that will call the chosen function with the selected period passing the interpolated values</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="duration">
+<code class="descname">duration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the total duration of the loaded animation. animate have to be called before in order to get results from duration method</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Animator Library"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Viper Team.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
