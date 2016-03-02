@@ -2,7 +2,7 @@
 # servo motor animation 
 #
 #
-# Created by VIPER Team 2015 CC
+# Created by Zerynth Team 2015 CC
 # Authors: D. Mazzei, G. Baldi  
 ################################################################################
 
